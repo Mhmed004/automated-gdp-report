@@ -1,4 +1,4 @@
-# 🌍 Automated GDP Economic Report Generator
+# Automated GDP Economic Report Generator
 
 ## Overview
 A Python automation script that pulls live GDP and economic data for 200+ countries 
