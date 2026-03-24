@@ -8,7 +8,7 @@ from datetime import datetime
 
 print("📦 Fetching live data from World Bank API...")
 
-# ── 1. PULL DATA ────────────────────────────────────────────────────────────
+# ── 1. PULL DATA
 
 # GDP (current US$)
 gdp = wb.data.DataFrame("NY.GDP.MKTP.CD", time=range(2013, 2023), labels=True).reset_index()
@@ -25,7 +25,7 @@ per_capita.columns = [str(c).replace("YR", "") for c in per_capita.columns]
 
 print("✅ Data fetched successfully!")
 
-# ── 2. CLEAN & ANALYZE ──────────────────────────────────────────────────────
+# ── 2. CLEAN & ANALYZE 
 
 year_cols = [str(y) for y in range(2013, 2023)]
 
@@ -53,7 +53,7 @@ pc_latest["GDP Per Capita 2022 (USD)"] = pc_latest["GDP Per Capita 2022 (USD)"].
 
 print("✅ Analysis complete!")
 
-# ── 3. BUILD EXCEL REPORT ───────────────────────────────────────────────────
+# ── 3. BUILD EXCEL REPORT
 
 today = datetime.today().strftime("%Y-%m-%d")
 filename = f"GDP_Economic_Report_{today}.xlsx"
@@ -80,7 +80,7 @@ def thin_border():
     s = Side(style="thin", color="CCCCCC")
     return Border(left=s, right=s, top=s, bottom=s)
 
-# ── SHEET 1: Executive Summary ──────────────────────────────────────────────
+# ── SHEET 1: Executive Summary 
 ws1 = wb_excel.active
 ws1.title = "Executive Summary"
 ws1.sheet_view.showGridLines = False
@@ -124,7 +124,7 @@ for i, (k, v) in enumerate(kpis, 5):
         c.border = thin_border()
         style_cell(c, align="center")
 
-# ── SHEET 2: Top 10 Economies ───────────────────────────────────────────────
+# ── SHEET 2: Top 10 Economies
 ws2 = wb_excel.create_sheet("Top 10 Economies")
 ws2.sheet_view.showGridLines = False
 ws2.column_dimensions["A"].width = 5
@@ -167,7 +167,7 @@ chart2.add_data(data_ref, titles_from_data=True)
 chart2.set_categories(cats_ref)
 ws2.add_chart(chart2, "E2")
 
-# ── SHEET 3: GDP Growth ─────────────────────────────────────────────────────
+# ── SHEET 3: GDP Growth 
 ws3 = wb_excel.create_sheet("GDP Growth 2022")
 ws3.sheet_view.showGridLines = False
 ws3.column_dimensions["A"].width = 30
@@ -194,7 +194,7 @@ for i, row in top20_growth.iterrows():
         cell.border = thin_border()
         style_cell(cell, align="center")
 
-# ── SHEET 4: GDP Per Capita ─────────────────────────────────────────────────
+# ── SHEET 4: GDP Per Capita 
 ws4 = wb_excel.create_sheet("GDP Per Capita")
 ws4.sheet_view.showGridLines = False
 ws4.column_dimensions["A"].width = 30
@@ -221,7 +221,7 @@ for i, row in top20_pc.iterrows():
         cell.border = thin_border()
         style_cell(cell, align="center")
 
-# ── SAVE ────────────────────────────────────────────────────────────────────
+#  SAVE 
 wb_excel.save(filename)
 print(f"\n✅ Report saved → {filename}")
 print("📊 Sheets: Executive Summary | Top 10 Economies | GDP Growth | GDP Per Capita")
